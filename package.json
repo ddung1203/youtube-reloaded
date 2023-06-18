@@ -7,7 +7,7 @@
     "url": "git+https://github.com/ddung1203/youtube-reloaded.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "author": "Joongseok Jeon",
   "license": "MIT",
