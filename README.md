@@ -1,34 +1,12 @@
 # YouTube Reloaded
 
-#### globalRouter
+`mongo`
 
-/ -> Home
-
-/join -> Join
-
-/login -> Login
-
-/search -> Search
-
-#### userRouter
-
-/users/:id -> See User
-
-/users/logout -> Log Out
-
-/users/edit -> Edit My Profile
-
-/users/delete -> Delete My Profile
-
-#### videoRouter
-
-/videos/:id -> See Video
-
-/videos/:id/edit -> Edit Video
-
-/videos/:id/delete -> Delete Video
-
-/videos/upload -> Upload Video
-
-<!-- /videos/comments -> Comment on an video
-/videos/comments/delete -> Delete A -->
+```bash
+docker run -d --name mongo \
+        -e MONGO_INITDB_ROOT_USERNAME=mongo \
+        -e MONGO_INITDB_ROOT_PASSWORD=mongo \
+        -p 27017:27017 \
+        -v /home/ubuntu/mongo:/data/db      \
+        mongo
+```
