@@ -30,7 +30,7 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
-    return res.redirect("/users/login");
+    return res.redirect("/");
   } catch (error) {
     return res.status(400).render("users/join", {
       pageTitle: "Join",
@@ -220,4 +220,14 @@ export const postChangePassword = async (req, res) => {
   return res.redirect("/users/logout");
 };
 
-export const see = (req, res) => res.send("See User");
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos");
+  if (!user) {
+    return res.status(400).render("404", { pageTitle: "User not found." });
+  }
+  return res.render("users/profile", {
+    pageTitle: user.name,
+    user,
+  });
+};
