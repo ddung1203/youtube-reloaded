@@ -26,8 +26,12 @@ const handlePlayClick = (e) => {
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 };
 
-const handlePause = () => (playBtn.innerText = "Play");
-const handlePlay = () => (playBtn.innerText = "Pause");
+const handleKeydown = (event) => {
+  if (event.code === "Space") {
+    handlePlayClick();
+    event.preventDefault();
+  }
+};
 
 const handleMuteClick = (e) => {
   if (video.muted) {
@@ -112,6 +116,8 @@ muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("click", handlePlayClick);
+document.addEventListener("keydown", handleKeydown);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);
