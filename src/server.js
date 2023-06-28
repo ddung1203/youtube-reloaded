@@ -22,6 +22,7 @@ app.use((req, res, next) => {
 app.use(flash());
 app.use(logger);
 app.use(express.urlencoded({ extended: true })); //form to javascript: req.body
+app.use(express.json()); //data FE to BE
 app.use(
   session({
     // Session hijack 방지
