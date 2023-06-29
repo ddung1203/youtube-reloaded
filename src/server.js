@@ -31,7 +31,7 @@ app.use(
     saveUninitialized: false,
     cookie: { maxAge: 1800000 },
     store: MongoStore.create({
-      mongoUrl: `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@127.0.0.1:27017/youtube?authSource=admin`,
+      mongoUrl: `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_URL}?authSource=admin`,
     }),
   })
 );
