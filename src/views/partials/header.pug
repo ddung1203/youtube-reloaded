@@ -15,8 +15,12 @@ header
           a(href="/users/logout") Logout
         li
           a(href=`/users/${loggedInUser._id}`) 
-            if !loggedInUser.avatarUrl
+            if loggedInUser.socialOnly
+              img.header__avatar(src=loggedInUser.avatarUrl, width="100", height="100")
+            else if !loggedInUser.avatarUrl
               span 😍
+            else if loggedInUser.avatarUrl
+              img.header__avatar(src="/" + loggedInUser.avatarUrl, width="100", height="100")
             else 
               img.header__avatar(src=loggedInUser.avatarUrl)
       else

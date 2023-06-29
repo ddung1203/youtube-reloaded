@@ -1,7 +1,10 @@
 extends ../base
 
 block content 
-  img(src="/" + loggedInUser.avatarUrl, width="100", height="100")
+  if loggedInUser.socialOnly
+    img.avatar(src=loggedInUser.avatarUrl, width="100", height="100")
+  else
+    img.avatar(src="/" + loggedInUser.avatarUrl, width="100", height="100")
   if errorMessage
     script.
       alert("#{errorMessage}")
