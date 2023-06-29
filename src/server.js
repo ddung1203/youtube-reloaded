@@ -6,8 +6,8 @@ import MongoStore from "connect-mongo";
 import globalRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
-import { localsMiddleware } from "./middleware";
 import apiRouter from "./routers/apiRouter";
+import { localsMiddleware } from "./middleware";
 
 const app = express();
 const logger = morgan("dev");
@@ -19,7 +19,6 @@ app.use((req, res, next) => {
   res.header("Cross-Origin-Opener-Policy", "same-origin");
   next();
 });
-app.use(flash());
 app.use(logger);
 app.use(express.urlencoded({ extended: true })); //form to javascript: req.body
 app.use(express.json()); //data FE to BE
@@ -36,7 +35,7 @@ app.use(
     }),
   })
 );
-
+app.use(flash());
 app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
