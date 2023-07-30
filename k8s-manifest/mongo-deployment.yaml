@@ -8,17 +8,15 @@ spec:
   ports:
     - port: 27017
       targetPort: 27017
-  clusterIP: None
   selector:
     role: mongo
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: mongo
 spec:
-  serviceName: "mongo"
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       role: mongo
@@ -26,16 +24,11 @@ spec:
     metadata:
       labels:
         role: mongo
-        environment: test
     spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongo
           image: mongo
-          # command:
-          #   - mongod
-          #   - "--replSet"
-          #   - rs0
           ports:
             - containerPort: 27017
           volumeMounts:
@@ -46,18 +39,7 @@ spec:
               value: "mongo"
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: "mongo"
-        # - name: mongo-sidecar
-        #   image: cvallance/mongo-k8s-sidecar
-        #   env:
-        #     - name: MONGO_SIDECAR_POD_LABELS
-        #       value: "role=mongo,environment=test"
-  volumeClaimTemplates:
-    - metadata:
-        name: mongo-persistent-storage
-        annotations:
-          volume.beta.kubernetes.io/storage-class: "nfs-client"
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 5Gi
+      volumes:
+      - name: mongo-persistent-storage
+        persistentVolumeClaim:
+          claimName: mongo-persistent-storage
