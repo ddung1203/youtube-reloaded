@@ -32,15 +32,9 @@ spec:
           volumeMounts:
             - name: youtube-persistent-storage
               mountPath: /app/uploads
-          env:
-            - name: MONGO_USERNAME
-              value: "mongo"
-            - name: MONGO_PASSWORD
-              value: "mongo"
-            - name: MONGO_URL
-              value: "mongo.mongo.svc.cluster.local"
-            - name: COOKIE_SECRET
-              value: "sdegrfkefw8t6732rbugwdqat8"
+          envFrom:
+          - secretRef:
+              name: mydata
       volumes:
       - name: youtube-persistent-storage
         persistentVolumeClaim:
