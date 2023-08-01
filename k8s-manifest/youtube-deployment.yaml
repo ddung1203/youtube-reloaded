@@ -33,12 +33,19 @@ spec:
             - name: youtube-persistent-storage
               mountPath: /app/uploads
           envFrom:
-          - secretRef:
-              name: mydata
+            - secretRef:
+                name: mydata
+          resources:
+            requests:
+              cpu: "0.5"
+              memory: "1G"
+            limits:
+              cpu: "0.5"
+              memory: "1G"
       volumes:
-      - name: youtube-persistent-storage
-        persistentVolumeClaim:
-          claimName: youtube-persistent-storage
+        - name: youtube-persistent-storage
+          persistentVolumeClaim:
+            claimName: youtube-persistent-storage
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -50,4 +57,4 @@ spec:
   resources:
     requests:
       storage: 10G
-  storageClassName: 'nfs-client'
+  storageClassName: "nfs-client"
