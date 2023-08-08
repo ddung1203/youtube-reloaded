@@ -65,7 +65,7 @@ spec:
             storage: 5Gi
 #
 # rsconf = {
-#   _id: 'rs0',
+#   _id: 'rs-0',
 #   members: [
 #     {
 #       _id: 0,
@@ -83,6 +83,8 @@ spec:
 # };
 #
 # rs.initiate(rsconf);
+#
+# use admin;
 #
 # db.createUser({ user: "mongo", pwd: "mongo", roles: [ "userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase" ]});
 #
