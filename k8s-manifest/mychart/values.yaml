@@ -1,10 +1,10 @@
 kubernetesClusterDomain: cluster.local
 
 mydata:
-  mongoUsername: "mongo"
-  mongoPassword: "mongo"
-  mongoUrl: "mongo.mongo.svc.cluster.local"
-  cookieSecret: "sdegrfkefw8t6732rbugwdqat8"
+  mongoUsername: ""
+  mongoPassword: ""
+  mongoUrl: ""
+  cookieSecret: ""
 
 replicaCount: 3
 strategy:
