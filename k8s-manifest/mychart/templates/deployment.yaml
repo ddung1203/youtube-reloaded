@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mychart.fullname" . }}-deployment
+  labels:
+    app: {{ include "mychart.fullname" . }}
+  {{- include "mychart.labels" . | nindent 4 }}
+spec:
+  strategy:
+    type: {{ .Values.strategy.type }}
+    rollingUpdate:
+      maxSurge: {{ .Values.strategy.maxSurge }}
+      maxUnavailable: {{ .Values.strategy.maxUnavailable }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "mychart.fullname" . }}
+    {{- include "mychart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "mychart.fullname" . }}
+      {{- include "mychart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        envFrom:
+        - secretRef:
+            name: {{ include "mychart.fullname" . }}-mydata
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.PullPolicy }}
+        livenessProbe: {{- toYaml .Values.livenessProbe | nindent 10 }}
+        readinessProbe: {{- toYaml .Values.readinessProbe | nindent 12 }}
+        name: mychart
+        ports:
+        - containerPort: 4000
+        resources: {{- toYaml .Values.resources | nindent 14 }}
+        volumeMounts:
+        - mountPath: /app/uploads
+          name: {{ include "mychart.fullname" . }}-persistent-storage
+      imagePullSecrets:
+      - name: regsecret
+      volumes:
+      - name: {{ include "mychart.fullname" . }}-persistent-storage
+        persistentVolumeClaim:
+          claimName: {{ include "mychart.fullname" . }}-persistent-storage
