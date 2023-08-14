@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: youtube
+  labels:
+    app: youtube
 spec:
   type: LoadBalancer
   selector:
@@ -14,6 +16,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: youtube
+  labels:
+    app: youtube
 spec:
   replicas: 3
   selector:
@@ -26,7 +30,8 @@ spec:
     spec:
       containers:
         - name: youtube
-          image: ddung1203/youtube:3
+          image: ghcr.io/ddung1203/youtube:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 4000
           volumeMounts:
@@ -42,6 +47,21 @@ spec:
             limits:
               cpu: "0.5"
               memory: "1G"
+          livenessProbe:
+            httpGet:
+              path: /health-check
+              port: 4000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 5
+          readinessProbe:
+            exec:
+              command: ["cat", "/app/uploads/readiness/ready"]
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+      imagePullSecrets:
+        - name: regsecret
       volumes:
         - name: youtube-persistent-storage
           persistentVolumeClaim:

@@ -43,5 +43,8 @@ app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 app.use("/api", apiRouter);
+app.get("/health-check", (req, res) => {
+  res.send("Health check passed");
+});
 
 export default app;
