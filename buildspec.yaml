@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 905418200746.dkr.ecr.ap-northeast-2.amazonaws.com
+      - REPOSITORY_URI=905418200746.dkr.ecr.ap-northeast-2.amazonaws.com/youtube
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+  build:
+    commands:
+      - echo Building the Docker image...
+      - docker build -t youtube .
+      - docker tag youtube:latest 905418200746.dkr.ecr.ap-northeast-2.amazonaws.com/youtube:latest
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push 905418200746.dkr.ecr.ap-northeast-2.amazonaws.com/youtube:latest
