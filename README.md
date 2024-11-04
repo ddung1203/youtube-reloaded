@@ -22,6 +22,7 @@ docker run -d --name youtube --network youtube   \
     -e MONGO_USERNAME=mongo                      \
     -e MONGO_PASSWORD=mongo                      \
     -e MONGO_URL=mongo                           \
+    -e COOKIE_SECRET=youtube                     \
     -p 80:4000                                   \
     ddung1203/youtube:3
 ```
