@@ -1,0 +1,138 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:905418200746:task-definition/VidTask:11",
+  "containerDefinitions": [
+    {
+      "name": "youtube",
+      "image": "905418200746.dkr.ecr.ap-northeast-2.amazonaws.com/youtube:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "youtube-4000-tcp",
+          "containerPort": 4000,
+          "hostPort": 4000,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "MONGO_USERNAME",
+          "value": "mongo"
+        },
+        {
+          "name": "MONGO_URL",
+          "value": "10.0.2.90"
+        },
+        {
+          "name": "COOKIE_SECRET",
+          "value": "youtube"
+        },
+        {
+          "name": "MONGO_PASSWORD",
+          "value": "mongo"
+        }
+      ],
+      "environmentFiles": [],
+      "mountPoints": [
+        {
+          "sourceVolume": "YouTube",
+          "containerPath": "/app/uploads",
+          "readOnly": false
+        }
+      ],
+      "volumesFrom": [],
+      "ulimits": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/VidTask",
+          "mode": "non-blocking",
+          "awslogs-create-group": "true",
+          "max-buffer-size": "25m",
+          "awslogs-region": "ap-northeast-2",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "systemControls": []
+    }
+  ],
+  "family": "VidTask",
+  "taskRoleArn": "arn:aws:iam::905418200746:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::905418200746:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "revision": 10,
+  "volumes": [
+    {
+      "name": "YouTube",
+      "efsVolumeConfiguration": {
+        "fileSystemId": "fs-0a29dd8823cab60b5",
+        "rootDirectory": "/",
+        "transitEncryption": "ENABLED",
+        "transitEncryptionPort": 2049,
+        "authorizationConfig": {
+          "accessPointId": "fsap-0920405ee92c0e662",
+          "iam": "DISABLED"
+        }
+      }
+    }
+  ],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.28"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "ecs.capability.task-eni"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "ecs.capability.efsAuth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "name": "ecs.capability.efs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": [
+    "EC2",
+    "FARGATE"
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "tags": []
+}

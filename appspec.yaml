@@ -1,0 +1,9 @@
+version: 0.0
+Resources:
+  - myEcsService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "VidTask:11"
+        LoadBalancerInfo:
+          ContainerName: "youtube"
+          ContainerPort: 4000
