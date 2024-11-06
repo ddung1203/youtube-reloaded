@@ -1,5 +1,4 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:905418200746:task-definition/VidTask:15",
   "containerDefinitions": [
     {
       "name": "youtube",
@@ -33,7 +32,6 @@
           "value": "mongo"
         }
       ],
-      "environmentFiles": [],
       "mountPoints": [
         {
           "sourceVolume": "YouTube",
@@ -41,8 +39,6 @@
           "readOnly": false
         }
       ],
-      "volumesFrom": [],
-      "ulimits": [],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -52,17 +48,14 @@
           "max-buffer-size": "25m",
           "awslogs-region": "ap-northeast-2",
           "awslogs-stream-prefix": "ecs"
-        },
-        "secretOptions": []
-      },
-      "systemControls": []
+        }
+      }
     }
   ],
   "family": "VidTask",
   "taskRoleArn": "arn:aws:iam::905418200746:role/ecsTaskExecutionRole",
   "executionRoleArn": "arn:aws:iam::905418200746:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
-  "revision": 10,
   "volumes": [
     {
       "name": "YouTube",
@@ -120,7 +113,6 @@
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
     }
   ],
-  "placementConstraints": [],
   "compatibilities": [
     "EC2",
     "FARGATE"
