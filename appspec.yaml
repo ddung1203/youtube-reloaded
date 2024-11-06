@@ -3,7 +3,7 @@ Resources:
   - myEcsService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "BuildArtifact::task-definiton.json"
+        TaskDefinition: "arn:aws:ecs:ap-northeast-2:905418200746:task-definition/VidTask"
         LoadBalancerInfo:
           ContainerName: "youtube"
           ContainerPort: 4000
