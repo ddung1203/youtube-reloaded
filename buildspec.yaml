@@ -18,3 +18,7 @@ phases:
     commands:
       - echo Pushing the Docker image...
       - docker push 905418200746.dkr.ecr.ap-northeast-2.amazonaws.com/youtube:latest
+      - printf '[{"name":"youtube","imageUri":"%s"}]' 905418200746.dkr.ecr.ap-northeast-2.amazonaws.com/youtube:latest > imagedefinitions.json
+
+artifacts:
+  files: imagedefinitions.json
